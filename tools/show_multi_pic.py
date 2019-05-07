@@ -24,26 +24,30 @@ def draw(txt_file, im):
     return im
 
 
-kitti_test_img_dir = '/media/yangshun/0008EB70000B0B9F/Datasets/KITTI/data_object_image_2/KITTI/testing/image_2'
-kitti_test_txt_dir = '/media/yangshun/0008EB70000B0B9F/roi_roi_new/kitti/txt/multi_scale_ctx_all/data'
+RESULT_DIR = '/media/yangshun/0008EB70000B0B9F/ROI_ROI_RESULT/debug/'
 
-# kitti_test_img_dir = '/media/yangshun/0008EB70000B0B9F/IMG_9037'
-# kitti_test_txt_dir = '/media/yangshun/0008EB70000B0B9F/roi_roi_new/kitti/txt/car/data'
+methods = [s for s in os.listdir(RESULT_DIR)]
+paths = [RESULT_DIR + s + '/data' for s in methods]
 
-images = glob.glob(os.path.join(kitti_test_img_dir, '*'))
-# images = sorted(images)
+img_path = '/media/yangshun/0008EB70000B0B9F/PycharmProjects/roi_roi/data/KITTIVOC/JPEGImages'
+test_txt = '/media/yangshun/0008EB70000B0B9F/PycharmProjects/faster_rcnn/data/KITTIVOC/ImageSets/Main/test.txt'
 
-for img in images:
-    name = os.path.basename(img).split('.')[0]
-    txt = os.path.join(kitti_test_txt_dir, name + '.txt')
+with open(test_txt, 'rb') as f:
+    lines = map(str.strip, f.readlines())
+
+for line in lines:
+    print(line)
+    img = os.path.join(img_path, line+'.jpg')
     im = cv2.imread(img)
-    im = draw(txt, im)
-    cv2.imshow('0', im)
-
+    for path in paths:
+        name = path.split('/')[-2]
+        txt = os.path.join(path, line+'.txt')
+        cv2.namedWindow(name)
+        im_copy = im.copy()
+        im_copy = draw(txt, im_copy)
+        cv2.imshow(name, im_copy)
     key = cv2.waitKey(0) & 0xFF
     if key == ord('q'):
         break
-    elif key == ord('s'):
-        cv2.imwrite('/media/yangshun/0008EB70000B0B9F/roi_roi_new/kitti/txt/multi_scale_ctx_all/'+name+'.jpg', im)
 cv2.destroyAllWindows()
 

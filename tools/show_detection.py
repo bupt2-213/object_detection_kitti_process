@@ -41,7 +41,7 @@ def validation(img_path, test_txt, detection_path, win_name):
 # for validation
 img_path = '/media/yangshun/0008EB70000B0B9F/PycharmProjects/roi_roi/data/KITTIVOC/JPEGImages'
 test_txt = '/media/yangshun/0008EB70000B0B9F/PycharmProjects/roi_roi/data/KITTIVOC/ImageSets/Main/test.txt'
-detection_path = '/media/yangshun/0008EB70000B0B9F/roi_roi/txt_result/new/fpn_fuse_phase_conelt320/data'
+detection_path = '/media/yangshun/0008EB70000B0B9F/roi_roi_new/kitti/txt/frcnn/data'
 rf_detection_path = '/media/yangshun/0008EB70000B0B9F/roi_roi/txt_result/new/fpn/data'
 
 
